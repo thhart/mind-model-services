@@ -22,7 +22,7 @@
 		<module>pose-estimation</module>
 		<module>semantic-segmentation</module>
 		<module>twitter-sentiment</module>
-		<module>image-recognition</module>
+		<module>image-intermediateResult</module>
 		<!--<module>face-detection-mtcnn</module>-->
 	</modules>
 

@@ -37,12 +37,18 @@
 		<dependency>
 			<groupId>org.tensorflow</groupId>
 			<artifactId>tensorflow-hadoop</artifactId>
-			<version>1.11.0</version>
+			<version>1.15.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jdk.tools</groupId>
+					<artifactId>jdk.tools</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.tensorflow</groupId>
 			<artifactId>proto</artifactId>
-			<version>1.11.0</version>
+			<version>1.15.0</version>
 		</dependency>
 
 	</dependencies>

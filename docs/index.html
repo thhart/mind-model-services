@@ -543,7 +543,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#pose-estimation">Pose Estimation</a></li>
 <li><a href="#face-detection-mtcnn">Face Detection (MTCNN)</a></li>
 <li><a href="#twitter-sentiment">Twitter Sentiment</a></li>
-<li><a href="#image-recognition">Image Recognition</a></li>
+<li><a href="#image-intermediateResult">Image Recognition</a></li>
 </ul>
 </li>
 </ul>
@@ -1639,10 +1639,10 @@ SentimentResult tweetSentiment = twitterSentimentService.tweetSentiment(tweet); 
 </div>
 </div>
 <div class="sect2">
-<h3 id="image-recognition"><a class="anchor" href="#image-recognition"></a>Image Recognition</h3>
+<h3 id="image-intermediateResult"><a class="anchor" href="#image-intermediateResult"></a>Image Recognition</h3>
 <div class="paragraph lead">
-<p>Java model inference library for the <a href="https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models">Inception</a>, <a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md#pre-trained-models">MobileNetV1</a> and <a href="https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet#pretrained-models">MobileNetV2</a> image recognition architectures.
-Provides real-time recognition of the <a href="https://dl.bintray.com/big-data/generic/imagenet_comp_graph_label_strings.txt">LSVRC-2012-CLS categories</a> in the input images.</p>
+<p>Java model inference library for the <a href="https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models">Inception</a>, <a href="https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md#pre-trained-models">MobileNetV1</a> and <a href="https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet#pretrained-models">MobileNetV2</a> image intermediateResult architectures.
+Provides real-time intermediateResult of the <a href="https://dl.bintray.com/big-data/generic/imagenet_comp_graph_label_strings.txt">LSVRC-2012-CLS categories</a> in the input images.</p>
 </div>
 <table class="tableblock frame-none grid-none stretch">
 <colgroup>
@@ -1652,31 +1652,31 @@ Provides real-time recognition of the <a href="https://dl.bintray.com/big-data/g
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><span class="image"><img src="images/image-augmented.jpg" alt="Inception 1" width="100%"></span></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <a href="https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/main/java/io/mindmodel/services/image/recognition/ImageRecognitionService.java">ImageRecognitionService</a> takes an image and outputs a list of probable categories the image contains. The response is represented by <a href="https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/main/java/io/mindmodel/services/image/recognition/RecognitionResponse.java">RecognitionResponse</a> class.</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <a href="https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/main/java/io/mindmodel/services/image/intermediateResult/ImageRecognitionService.java">ImageRecognitionService</a> takes an image and outputs a list of probable categories the image contains. The response is represented by <a href="https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/main/java/io/mindmodel/services/image/intermediateResult/RecognitionResponse.java">RecognitionResponse</a> class.</p>
 <p class="tableblock">The <a href="https://github.com/tzolov/mind-model-services/blob/master/common/src/main/java/io/mindmodel/services/common/JsonMapperFunction.java">JsonMapperFunction</a> permits
 converting the <code>RecognitionResponse</code> into JSON objects and the
-<a href="https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/main/java/io/mindmodel/services/image/recognition/ImageRecognitionAugmenter.java">ImageRecognitionAugmenter</a> can augment the input image with the detected categories (as shown in pic. 1).</p></td>
+<a href="https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/main/java/io/mindmodel/services/image/intermediateResult/ImageRecognitionAugmenter.java">ImageRecognitionAugmenter</a> can augment the input image with the detected categories (as shown in pic. 1).</p></td>
 </tr>
 </tbody>
 </table>
 <div class="sect3">
 <h4 id="usage-6"><a class="anchor" href="#usage-6"></a>Usage</h4>
 <div class="paragraph">
-<p>Add the <code>image-recognition</code> dependency to the pom (use the latest version available):</p>
+<p>Add the <code>image-intermediateResult</code> dependency to the pom (use the latest version available):</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>io.mindmodel.services<span class="tag">&lt;/groupId&gt;</span>
-    <span class="tag">&lt;artifactId&gt;</span>image-recognition<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>image-intermediateResult<span class="tag">&lt;/artifactId&gt;</span>
     <span class="tag">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="example-1-image-recognition"><a class="anchor" href="#example-1-image-recognition"></a>Example 1: Image Recognition</h5>
+<h5 id="example-1-image-intermediateResult"><a class="anchor" href="#example-1-image-intermediateResult"></a>Example 1: Image Recognition</h5>
 <div class="paragraph">
-<p>The <a href="https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/test/java/io/mindmodel/services/image/recognition/ImageRecognitionExample.java">ImageRecognitionExample.java</a> demonstrates how to use the <code>ImageRecognitionService</code> for detecting the categoryes present in an input image.
+<p>The <a href="https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/test/java/io/mindmodel/services/image/intermediateResult/ImageRecognitionExample.java">ImageRecognitionExample.java</a> demonstrates how to use the <code>ImageRecognitionService</code> for detecting the categoryes present in an input image.
 It also shows how to convert the result into JSON format and augment the input image with the detected category labels.</p>
 </div>
 <div class="listingblock">
@@ -1754,7 +1754,7 @@ It also shows how to convert the result into JSON format and augment the input i
 </div>
 </div>
 <div class="paragraph">
-<p>Use the <a href="https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/main/java/io/mindmodel/services/image/recognition/ImageRecognitionAugmenter.java">ImageRecognitionAugmenter</a>
+<p>Use the <a href="https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/main/java/io/mindmodel/services/image/intermediateResult/ImageRecognitionAugmenter.java">ImageRecognitionAugmenter</a>
 to draw the recognized categories on top of the input image.</p>
 </div>
 <div class="listingblock">
@@ -1764,7 +1764,7 @@ to draw the recognized categories on top of the input image.</p>
 2
 </pre></td>
   <td class="code"><pre><span class="type">byte</span><span class="type">[]</span> augmentedImage = <span class="keyword">new</span> ImageRecognitionAugmenter().apply(inputImage, recognizedObjects); <i class="conum" data-value="1"></i><b>(1)</b>
-IOUtils.write(augmentedImage, <span class="keyword">new</span> <span class="predefined-type">FileOutputStream</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">./image-recognition/target/image-augmented.jpg</span><span class="delimiter">&quot;</span></span>));<i class="conum" data-value="2"></i><b>(2)</b></pre></td>
+IOUtils.write(augmentedImage, <span class="keyword">new</span> <span class="predefined-type">FileOutputStream</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">./image-intermediateResult/target/image-augmented.jpg</span><span class="delimiter">&quot;</span></span>));<i class="conum" data-value="2"></i><b>(2)</b></pre></td>
 </tr></table></code></pre>
 </div>
 </div>

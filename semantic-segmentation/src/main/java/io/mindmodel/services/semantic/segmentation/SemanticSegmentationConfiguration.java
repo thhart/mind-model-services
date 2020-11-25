@@ -16,16 +16,12 @@
 
 package io.mindmodel.services.semantic.segmentation;
 
+import java.util.*;
+import java.util.function.*;
 import java.awt.image.BufferedImage;
-import java.util.Collections;
-import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-
 import io.mindmodel.services.common.GraphicsUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.tensorflow.Tensor;
+import org.apache.commons.logging.*;
+import org.tensorflow.*;
 import org.tensorflow.types.UInt8;
 
 /**
@@ -41,12 +37,12 @@ public class SemanticSegmentationConfiguration {
 	/**
 	 * Blended mask transparency. Value is between 0.0 (0% transparency) and 1.0 (100% transparent).
 	 */
-	private double maskTransparency = 0.3;
+	private double maskTransparency = 0.4;
 
 	/**
 	 * Generated image format
 	 */
-	private String imageFormat = "jpg";
+	private String imageFormat = "png";
 
 	public double getMaskTransparency() {
 		return maskTransparency;
@@ -76,6 +72,17 @@ public class SemanticSegmentationConfiguration {
 		};
 	}
 
+	public int getIndexOfLargest( float[] array )
+	{
+	  if ( array == null || array.length == 0 ) return -1; // null or empty
+
+	  int largest = 0;
+	  for ( int i = 1; i < array.length; i++ )
+	  {
+	      if ( array[i] > array[largest] ) largest = i;
+	  }
+	  return largest; // position of the first largest found
+	}
 	/**
 	 * Converts output named tensors into pixel masks
 	 * @return
@@ -85,7 +92,42 @@ public class SemanticSegmentationConfiguration {
 			Tensor<?> outputTensor = resultTensors.get(SemanticSegmentationUtils.OUTPUT_TENSOR_NAME);
 			int width = (int) outputTensor.shape()[1];
 			int height = (int) outputTensor.shape()[2];
-			long[][] maskPixels = outputTensor.copyTo(new long[BATCH_SIZE][width][height])[0];
+			long[][] maskPixels;
+			if (outputTensor.dataType() == DataType.INT64) {
+				maskPixels = outputTensor.copyTo(new long[BATCH_SIZE][width][height])[0];
+			} else if (outputTensor.dataType() == DataType.FLOAT) {
+				final float[][][][] floats = outputTensor.copyTo(new float[BATCH_SIZE][width][height][3]);
+				final float[][][] ints = ((floats)[0]);
+				maskPixels = new long[width][height];
+				for (int i = 0, length = ints.length; i < length; i++) {
+					for (int j = 0; j < ints[i].length; j++) {
+						maskPixels[i][j] = (long) (getIndexOfLargest(ints[i][j]) * 24);
+					}
+				}
+			} else {
+				final int[][][] dst = new int[BATCH_SIZE][width][height];
+				final int[][] ints = outputTensor.copyTo(dst)[0];
+				maskPixels = new long[width][height];
+				for (int i = 0, length = ints.length; i < length; i++) {
+					for (int j = 0; j < ints[i].length; j++) {
+						maskPixels[i][j] = ints[i][j];
+					}
+				}
+			}
+			return maskPixels;
+		};
+	}
+
+	/**
+	 * Converts output named tensors into pixel masks
+	 * @return
+	 */
+	public Function<Map<String, Tensor<?>>, int[][]> outputIntConverter() {
+		return resultTensors -> {
+			Tensor<?> outputTensor = resultTensors.get(SemanticSegmentationUtils.OUTPUT_TENSOR_NAME);
+			int width = (int) outputTensor.shape()[1];
+			int height = (int) outputTensor.shape()[2];
+			int[][] maskPixels = outputTensor.copyTo(new int[BATCH_SIZE][width][height])[0];
 			return maskPixels;
 		};
 	}

@@ -1,30 +1,18 @@
 package io.mindmodel.services.semantic.segmentation;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.Map;
-
+import java.util.*;
+import java.awt.*;
+import java.awt.image.*;
 import javax.imageio.ImageIO;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.mindmodel.services.common.GraphicsUtils;
-import io.mindmodel.services.common.TensorFlowService;
+import io.mindmodel.services.common.*;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.tensorflow.Tensor;
 import org.tensorflow.types.UInt8;
 
-import org.springframework.core.io.DefaultResourceLoader;
-
-import static java.awt.image.BufferedImage.TYPE_3BYTE_BGR;
+import static java.awt.image.BufferedImage.*;
 
 /**
  *
@@ -48,11 +36,13 @@ import static java.awt.image.BufferedImage.TYPE_3BYTE_BGR;
 public class SemanticSegmentationUtils {
 
 	public static final String INPUT_TENSOR_NAME = "ImageTensor:0";
+	//public static final String OUTPUT_TENSOR_NAME = "output";
 	public static final String OUTPUT_TENSOR_NAME = "SemanticPredictions:0";
+	//public static final String OUTPUT_TENSOR_NAME = "SemanticProbabilities:0";
 
 	private static final int BATCH_SIZE = 1;
 	private static final long CHANNELS = 3;
-	private static final int REQUIRED_INPUT_IMAGE_SIZE = 513;
+	private static final int REQUIRED_INPUT_IMAGE_SIZE = 512;
 
 	public static BufferedImage scaledImage(String imagePath) {
 		try {

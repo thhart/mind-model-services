@@ -122,7 +122,7 @@ public class ObjectDetectionServiceTest {
 		List<String> jsonList = out.stream().map(new JsonMapperFunction()).collect(Collectors.toList());
 		//System.out.println(jsonList.get(0));
 
-		Assert.assertEquals("[{\"name\":\"kite\",\"confidence\":0.8673682,\"x1\":0.44308642,\"y1\":0.0814952,\"x2\":0.5014239,\"y2\":0.169772,\"cid\":38}," +
+		Assert.assertEquals("[{\"name\":\"kite\",\"confidence\":0.8673682,\"x1\":0.44308642,\"y1\":0.08149522,\"x2\":0.5014239,\"y2\":0.169772,\"cid\":38}," +
 				"{\"name\":\"kite\",\"confidence\":0.80015683,\"x1\":0.34496674,\"y1\":0.37845963,\"x2\":0.3610665,\"y2\":0.4024166,\"cid\":38}," +
 				"{\"name\":\"person\",\"confidence\":0.787643,\"x1\":0.3913834,\"y1\":0.5630007,\"x2\":0.4083495,\"y2\":0.59502745,\"cid\":1}," +
 				"{\"name\":\"person\",\"confidence\":0.7242934,\"x1\":0.08181207,\"y1\":0.68023187,\"x2\":0.124822214,\"y2\":0.83192676,\"cid\":1}," +

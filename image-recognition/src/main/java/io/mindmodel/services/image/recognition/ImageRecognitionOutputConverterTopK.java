@@ -16,20 +16,11 @@
 
 package io.mindmodel.services.image.recognition;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.tensorflow.Graph;
-import org.tensorflow.Session;
-import org.tensorflow.Tensor;
+import org.apache.commons.logging.*;
+import org.tensorflow.*;
 import org.tensorflow.op.Ops;
-import org.tensorflow.op.core.Placeholder;
-import org.tensorflow.op.core.TopK;
 
 /**
  * @author Christian Tzolov
@@ -48,8 +39,8 @@ public class ImageRecognitionOutputConverterTopK implements Function<Map<String,
 
 		Graph g = new Graph();
 		Ops tf = Ops.create(g);
-		Placeholder<Float> input = tf.withName("recognition_result").placeholder(Float.class);
-		TopK<Float> topK = tf.withName("topK").topK(input, tf.constant(responseSize), TopK.sorted(true));
+		//Placeholder<Float> input = tf.withName("recognition_result").placeholder(Float.class);
+		//TopK<Float> topK = tf.withName("topK").topK(input, tf.constant(responseSize), TopK.sorted(true));
 
 		this.session = new Session(g);
 	}

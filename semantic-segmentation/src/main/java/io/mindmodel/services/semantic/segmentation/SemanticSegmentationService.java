@@ -17,11 +17,8 @@ package io.mindmodel.services.semantic.segmentation;
 
 import java.util.Arrays;
 import java.util.function.Function;
-
 import io.mindmodel.services.common.TensorFlowService;
-
 import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 
 /**
  * @author Christian Tzolov
@@ -62,6 +59,8 @@ public class SemanticSegmentationService {
 	}
 
 	public byte[] masksAsImage(byte[] image) {
-		return segmentationConfiguration.pixelsToMaskImage().apply(segmentationFunction.apply(image));
+		final long[][] longs = segmentationFunction.apply(image);
+		final Function<long[][], byte[]> function = segmentationConfiguration.pixelsToMaskImage();
+		return function.apply(longs);
 	}
 }

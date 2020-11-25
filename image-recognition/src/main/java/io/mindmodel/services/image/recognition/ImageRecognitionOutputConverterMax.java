@@ -16,19 +16,11 @@
 
 package io.mindmodel.services.image.recognition;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.tensorflow.Graph;
-import org.tensorflow.Session;
-import org.tensorflow.Tensor;
+import org.apache.commons.logging.*;
+import org.tensorflow.*;
 import org.tensorflow.op.Ops;
-import org.tensorflow.op.core.ArgMax;
-import org.tensorflow.op.core.Max;
 import org.tensorflow.op.core.Placeholder;
 
 /**
@@ -48,8 +40,8 @@ public class ImageRecognitionOutputConverterMax implements Function<Map<String, 
 		Graph g = new Graph();
 		Ops tf = Ops.create(g);
 		Placeholder<Float> input = tf.withName("recognition_result").placeholder(Float.class);
-		ArgMax<Long> argMax = tf.withName("category").argMax(input, tf.constant(1));
-		Max<Float> max = tf.withName("probability").max(input, tf.constant(1));
+		//ArgMax<Long> argMax = tf.withName("category").argMax(input, tf.constant(1));
+		//Max<Float> max = tf.withName("probability").max(input, tf.constant(1));
 
 		this.session = new Session(g);
 

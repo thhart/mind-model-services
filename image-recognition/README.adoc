@@ -6,34 +6,34 @@ ifdef::env-github[:imagesdir: /src/docs/asciidoc/images/images]
 
 
 [.lead]
-Java model inference library for the https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models[Inception], https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md#pre-trained-models[MobileNetV1] and https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet#pretrained-models[MobileNetV2] image recognition architectures.
-Provides real-time recognition of the https://dl.bintray.com/big-data/generic/imagenet_comp_graph_label_strings.txt[LSVRC-2012-CLS categories] in the input images.
+Java model inference library for the https://github.com/tensorflow/models/tree/master/research/slim#pre-trained-models[Inception], https://github.com/tensorflow/models/blob/master/research/slim/nets/mobilenet_v1.md#pre-trained-models[MobileNetV1] and https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet#pretrained-models[MobileNetV2] image intermediateResult architectures.
+Provides real-time intermediateResult of the https://dl.bintray.com/big-data/generic/imagenet_comp_graph_label_strings.txt[LSVRC-2012-CLS categories] in the input images.
 
 [cols="1,2", frame=none, grid=none]
 |===
 | image:{imagesdir}/../image-augmented.jpg[alt=Inception 1, width=100%]
-|The https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/main/java/io/mindmodel/services/image/recognition/ImageRecognitionService.java[ImageRecognitionService] takes an image and outputs a list of probable categories the image contains. The response is represented by https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/main/java/io/mindmodel/services/image/recognition/RecognitionResponse.java[RecognitionResponse] class.
+|The https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/main/java/io/mindmodel/services/image/intermediateResult/ImageRecognitionService.java[ImageRecognitionService] takes an image and outputs a list of probable categories the image contains. The response is represented by https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/main/java/io/mindmodel/services/image/intermediateResult/RecognitionResponse.java[RecognitionResponse] class.
 
 The https://github.com/tzolov/mind-model-services/blob/master/common/src/main/java/io/mindmodel/services/common/JsonMapperFunction.java[JsonMapperFunction] permits
 converting the `RecognitionResponse` into JSON objects and the
-https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/main/java/io/mindmodel/services/image/recognition/ImageRecognitionAugmenter.java[ImageRecognitionAugmenter] can augment the input image with the detected categories (as shown in pic. 1).
+https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/main/java/io/mindmodel/services/image/intermediateResult/ImageRecognitionAugmenter.java[ImageRecognitionAugmenter] can augment the input image with the detected categories (as shown in pic. 1).
 |===
 ==== Usage
 
-Add the `image-recognition` dependency to the pom (use the latest version available):
+Add the `image-intermediateResult` dependency to the pom (use the latest version available):
 
 [source,xml]
 ----
 <dependency>
     <groupId>io.mindmodel.services</groupId>
-    <artifactId>image-recognition</artifactId>
+    <artifactId>image-intermediateResult</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 </dependency>
 ----
 
 ===== Example 1: Image Recognition
 
-The https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/test/java/io/mindmodel/services/image/recognition/ImageRecognitionExample.java[ImageRecognitionExample.java] demonstrates how to use the `ImageRecognitionService` for detecting the categoryes present in an input image. 
+The https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/test/java/io/mindmodel/services/image/intermediateResult/ImageRecognitionExample.java[ImageRecognitionExample.java] demonstrates how to use the `ImageRecognitionService` for detecting the categoryes present in an input image.
 It also shows how to convert the result into JSON format and augment the input image with the detected category labels.
 
 [source,java,linenums]
@@ -70,13 +70,13 @@ String jsonRecognizedObjects = new JsonMapperFunction().apply(recognizedObjects)
 [{"label":"giant panda","probability":0.9946687817573547},{"label":"Arctic fox","probability":0.0036631098482757807},{"label":"ice bear","probability":3.3782739774324E-4},{"label":"American black bear","probability":2.3452856112271547E-4},{"label":"skunk","probability":1.6454080468975008E-4}]
 ----
 
-Use the https://github.com/tzolov/mind-model-services/blob/master/image-recognition/src/main/java/io/mindmodel/services/image/recognition/ImageRecognitionAugmenter.java[ImageRecognitionAugmenter]
+Use the https://github.com/tzolov/mind-model-services/blob/master/image-intermediateResult/src/main/java/io/mindmodel/services/image/intermediateResult/ImageRecognitionAugmenter.java[ImageRecognitionAugmenter]
 to draw the recognized categories on top of the input image.
 
 [source,java,linenums]
 ----
 byte[] augmentedImage = new ImageRecognitionAugmenter().apply(inputImage, recognizedObjects); //<1>
-IOUtils.write(augmentedImage, new FileOutputStream("./image-recognition/target/image-augmented.jpg"));//<2>
+IOUtils.write(augmentedImage, new FileOutputStream("./image-intermediateResult/target/image-augmented.jpg"));//<2>
 ----
 <1> Augment the image with the recognized categories (uses Java2D internally).
 <2> Stores the augmented image as `image-augmented.jpg` image file.

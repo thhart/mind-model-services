@@ -16,18 +16,11 @@
 
 package io.mindmodel.services.image.recognition;
 
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.tensorflow.Graph;
-import org.tensorflow.Operand;
-import org.tensorflow.Session;
-import org.tensorflow.Tensor;
+import org.apache.commons.logging.*;
+import org.tensorflow.*;
 import org.tensorflow.op.Ops;
-import org.tensorflow.op.core.DecodeJpeg;
 import org.tensorflow.op.core.Placeholder;
 
 
@@ -84,17 +77,17 @@ public class ImageRecognitionInputConverter implements Function<byte[], Map<Stri
 
 		Placeholder<String> input = tf.withName(NORMALIZE_IMAGE_GRAPH_INPUT_NAME).placeholder(String.class);
 
-		final Operand<Float> decodedImage =
-				tf.cast(tf.decodeJpeg(input.asOutput(), DecodeJpeg.channels(3L)), Float.class);
-
-		final Operand<Float> resizedImage =
-				tf.resizeBilinear(
-						tf.expandDims(decodedImage, tf.constant(0)),
-						tf.constant(new int[] { imageHeight, imageWidth }));
-
-		Operand<Float> normalizeOperand = tf.withName(NORMALIZE_IMAGE_GRAPH_OUTPUT_NAME)
-				.div(tf.sub(resizedImage, tf.constant(mean)), tf.constant(scale));
-
+		//final Operand<Float> decodedImage =
+		//		tf.cast(tf.decodeJpeg(input.asOutput(), DecodeJpeg.channels(3L)), Float.class);
+		//
+		//final Operand<Float> resizedImage =
+		//		tf.resizeBilinear(
+		//				tf.expandDims(decodedImage, tf.constant(0)),
+		//				tf.constant(new int[] { imageHeight, imageWidth }));
+		//
+		//Operand<Float> normalizeOperand = tf.withName(NORMALIZE_IMAGE_GRAPH_OUTPUT_NAME)
+		//		.div(tf.sub(resizedImage, tf.constant(mean)), tf.constant(scale));
+		//
 		return new Session(g);
 	}
 

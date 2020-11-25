@@ -16,18 +16,14 @@
 
 package io.mindmodel.services.common;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.tensorflow.Graph;
-import org.tensorflow.Session;
+import org.tensorflow.*;
 import org.tensorflow.Session.Runner;
-import org.tensorflow.Tensor;
 
 import org.springframework.core.io.Resource;
 
@@ -53,6 +49,8 @@ public class TensorFlowService implements Function<Map<String, Tensor<?>>, Map<S
 		Graph graph = new Graph();
 		byte[] model = cacheModel ? new CachedModelExtractor().getModel(modelLocation) : new ModelExtractor().getModel(modelLocation);
 		graph.importGraphDef(model);
+		//final Iterator<Operation> iterator = graph.operations();
+		//iterator.forEachRemaining(operation -> System.err.println(operation.name()));
 		this.session = new Session(graph);
 	}
 
@@ -68,7 +66,6 @@ public class TensorFlowService implements Function<Map<String, Tensor<?>>, Map<S
 	public Map<String, Tensor<?>> apply(Map<String, Tensor<?>> feeds) {
 
 		Runner runner = this.session.runner();
-
 		// Keep tensor references to release them in the finally block
 		Tensor[] feedTensors = new Tensor[feeds.size()];
 		try {
